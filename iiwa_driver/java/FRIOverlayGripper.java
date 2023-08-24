@@ -38,7 +38,7 @@ public class FRIOverlayGripper extends RoboticsAPIApplication
         _clientName = "192.170.10.1";
 
         // attach a gripper
-        _toolAttached = getApplicationData().createFromTemplate("MyVirtualGripper");
+        _toolAttached = getApplicationData().createFromTemplate("SchunkLeft");
         _toolAttached.attachTo(_lbr.getFlange());
     }
 
