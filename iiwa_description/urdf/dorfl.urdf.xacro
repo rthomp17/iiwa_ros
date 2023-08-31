@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+
+<!-- Here we define the robot, we named it "humanoid" -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="humanoid">
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
+  <!--Import the iiwa7 macro -->
+  <xacro:include filename="$(find iiwa_description)/urdf/iiwa7.xacro"/>
+  <!--  Arguments for the iiwa7 macro  -->
+  <xacro:arg name="hardware_interface" default="PositionJointInterface"/>
+
+  <!--  Edit  -->
+  <!--Import the schunk sdh macro -->
+  <xacro:include filename="$(find schunk_description)/urdf/sdh/sdh.urdf.xacro"/>
+  <!--  Edit  -->
+
+  <!-- Define world -->
+  <link name="world">
+    <origin xyz ="0.0 0.0 0.0" rpy="0 0 0"/>
+  </link>
+  <gazebo reference="world">
+    <static>true</static>
+  </gazebo>
+ <joint name="world_to_torso" type="fixed">
+    <parent link="world"/>
+    <child link="torso"/>
+    <origin xyz ="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Define torso from Vention -->
+  <link name="torso">
+    <visual>
+      <origin rpy="1.57 0  1.57" xyz="0.85 -.44 1.4"/>
+      <geometry>
+         <mesh filename="package://humanoid_description/meshes/VentionAssembly_159315_v38.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+     <collision>
+      <origin rpy="1.57 0  1.57" xyz="0.85 -.44 1.4"/>
+      <geometry>
+         <mesh filename="package://humanoid_description/meshes/VentionAssembly_159315_v38.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+   <!-- Here we insert the (left) iiwa7 robot in the scene-->
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_left" parent="torso">
+    <origin xyz="0.15 0.33 1.35" rpy="0 1.57 0"/>
+  </xacro:iiwa7>
+
+  <!-- Here we insert the (right) iiwa7 robot in the scene-->
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_right" parent="torso">
+    <origin xyz="0.15 -0.33 1.35" rpy="0 1.57 0"/>
+  </xacro:iiwa7>
+
+  <joint name="iiwa_right_to_ft_sensor_right" type="fixed">
+    <parent link="iiwa_right_link_ee"/>
+    <child link="ft_sensor_right"/>
+    <origin xyz="0.0 0.0 0.0635"/> 
+  </joint>
+
+  <link name="ft_sensor_right">
+    <visual>
+      <geometry>
+         <cylinder radius="0.0508" length="0.125"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+         <cylinder radius="0.0508" length="0.125"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!--Here we insert the (right) Schunk SDH2 in the scene -->
+  <xacro:schunk_sdh name="schunk_right" parent="ft_sensor_right">
+    <origin xyz="0 0 0.0635" rpy="0 0 -1.8"/>
+  </xacro:schunk_sdh>
+
+  <!-- define SchunkRight_ee_link such that iiwa_ros finds the tool frame -->
+  <joint name="right_ee_fixed" type="fixed">
+    <parent link="iiwa_right_link_ee" />
+    <child link="SchunkRight_link_ee"/>
+    <origin xyz="0 0 0.134"/>
+  </joint>
+
+  <link name="SchunkRight_link_ee"/>
+
+<!--   <joint name="iiwa_right_to_schunk_right" type="fixed">
+    <parent link="iiwa_right_joint_ee"/>
+    <child link="schunk_right"/>
+    <origin xyz="0 0 0.1"/>
+  </joint> -->
+
+  <!--  Edit  -->
+
+ <!-- Include and invoke the macro which creates a D46 PTU -->
+  <xacro:include filename="$(find flir_ptu_description)/urdf/d46.urdf.xacro" />
+  <xacro:ptu_d46 name="ptu" />
+
+  <!-- Create a fixed joint to connect the PTU to the rest of the robot -->
+  <joint name="torso_to_ptu_base" type="fixed">
+    <parent link="torso"/>
+    <child link="ptu_base_link"/>
+    <origin xyz="0.11 -0.01 1.54"/>
+  </joint>
+
+  <!-- PTU to SC -->
+  <joint name="ptu_to_sc" type="fixed">
+    <parent link="ptu_mount_link"/>
+    <child link="sc_map"/>
+    <!-- <origin xyz="0.0206375 0.0 0.01905" rpy="-1.570 0 -1.57"/> -->
+    <origin xyz="0.01 0.0 0.0" rpy="-1.570 0 -1.57"/>
+  </joint>
+
+  <link name="sc_map">
+    <origin xyz ="0.0 0.0 0" rpy="0 0 0"/>
+  </link>
+
+  <joint name="world_to_iiwa_left_geom" type="fixed">
+    <parent link="world"/>
+    <child link="iiwa_left_fake_geom"/>
+    <origin xyz="0.35 0.33 1.35"/> 
+  </joint>
+  <link name="iiwa_left_fake_geom">
+    <visual>
+      <geometry>
+        <box size="0.5 0.25 0.25"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 0.5"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+        <box size="0.5 0.25 0.25"/>
+      </geometry>
+    </collision>
+  </link>
+
+<!--   <joint name="world_to_obj" type="fixed">
+    <parent link="world"/>
+    <child link="obj"/>
+    <origin xyz="1.55 0.65 1.2" rpy="0 0 0.65"/> 
+  </joint>
+  <link name="obj">
+    <visual>
+      <geometry>
+        <box size="1.0 1.5 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 0.5"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+        <box size="1.0 1.5 1"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="obj_to_obj2" type="fixed">
+    <parent link="obj"/>
+    <child link="obj2"/>
+    <origin xyz="-0.3 -0.55 0" rpy="0 0 0.0"/> 
+  </joint>
+  <link name="obj2">
+    <visual>
+      <geometry>
+         <box size="1.0 0.3 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 0.5"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+         <box size="1.0 0.3 1"/>
+      </geometry>
+    </collision>
+  </link> -->
+
+  <!-- APPROXIMATE TABLE HEIGHT -->
+  <!-- <joint name="world_to_table" type="fixed">
+    <parent link="world"/>
+    <child link="table"/>
+    <origin xyz="0.0 0.0 0.75087592"/> 
+  </joint>
+  <link name="table">
+    <visual>
+      <geometry>
+         <box size="5.0 5.0 0.01"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.5 0.5 0.5 1"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+         <box size="5.0 5.0 0.01"/>
+      </geometry>
+    </collision>
+  </link> -->
+</robot> 
