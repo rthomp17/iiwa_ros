@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- Here we define the robot, we named it "humanoid" -->
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="humanoid">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dorfl">
 
   <!-- Import Rviz colors -->
   <xacro:include filename="$(find iiwa_description)/urdf/materials.xacro" />
@@ -44,13 +44,25 @@
     </collision>
   </link>
 
+
+   <xacro:arg name="simple_collision" default="false"/>
+  <!-- collision shapes -->
+  <xacro:if value="$(arg simple_collision)">
+    <xacro:arg name="collision_postfix" default="_s"/> <!-- TO-DO: Create simple collision shapes for iiwa 7 -->
+  </xacro:if>
+  <xacro:unless value="$(arg simple_collision)">
+    <xacro:arg name="collision_postfix" default=""/>
+  </xacro:unless>
+
    <!-- Here we insert the (left) iiwa7 robot in the scene-->
-  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_left" parent="torso">
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_left" 
+    parent="torso" collision_postfix="$(arg collision_postfix)">
     <origin xyz="0.15 0.33 1.35" rpy="0 1.57 0"/>
   </xacro:iiwa7>
 
   <!-- Here we insert the (right) iiwa7 robot in the scene-->
-  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_right" parent="torso">
+  <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_right" 
+    parent="torso" collision_postfix="$(arg collision_postfix)">
     <origin xyz="0.15 -0.33 1.35" rpy="0 1.57 0"/>
   </xacro:iiwa7>
 
@@ -61,6 +73,28 @@
   </joint>
 
   <link name="ft_sensor_right">
+    <visual>
+      <geometry>
+         <cylinder radius="0.0508" length="0.125"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+     <collision>
+      <geometry>
+         <cylinder radius="0.0508" length="0.125"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="iiwa_left_to_ft_sensor_left" type="fixed">
+    <parent link="iiwa_left_link_ee"/>
+    <child link="ft_sensor_left"/>
+    <origin xyz="0.0 0.0 0.0635"/> 
+  </joint>
+
+  <link name="ft_sensor_left">
     <visual>
       <geometry>
          <cylinder radius="0.0508" length="0.125"/>
@@ -89,6 +123,20 @@
   </joint>
 
   <link name="SchunkRight_link_ee"/>
+
+  <!--Here we insert the (left) Schunk SDH2 in the scene -->
+  <xacro:schunk_sdh name="schunk_left" parent="ft_sensor_left">
+    <origin xyz="0 0 0.0635" rpy="0 0 -1.8"/>
+  </xacro:schunk_sdh>
+
+  <!-- define SchunkRight_ee_link such that iiwa_ros finds the tool frame -->
+  <joint name="left_ee_fixed" type="fixed">
+    <parent link="iiwa_left_link_ee" />
+    <child link="SchunkLeft_link_ee"/>
+    <origin xyz="0 0 0.134"/>
+  </joint>
+
+  <link name="SchunkLeft_link_ee"/>
 
 <!--   <joint name="iiwa_right_to_schunk_right" type="fixed">
     <parent link="iiwa_right_joint_ee"/>
@@ -121,7 +169,32 @@
     <origin xyz ="0.0 0.0 0" rpy="0 0 0"/>
   </link>
 
-  <joint name="world_to_iiwa_left_geom" type="fixed">
+
+<!-- Load Gazebo lib and set the robot namespace -->
+  
+<!--   <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>dorfl</robotNamespace>
+      <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+ -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>dorfl</robotNamespace>
+      <!-- <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType> -->
+    </plugin>
+  </gazebo>
+<!-- 
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>iiwa_right</robotNamespace>
+      <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType>
+    </plugin>
+  </gazebo> -->
+
+
+  <!-- <joint name="world_to_iiwa_left_geom" type="fixed">
     <parent link="world"/>
     <child link="iiwa_left_fake_geom"/>
     <origin xyz="0.35 0.33 1.35"/> 
@@ -140,7 +213,7 @@
         <box size="0.5 0.25 0.25"/>
       </geometry>
     </collision>
-  </link>
+  </link> -->
 
 <!--   <joint name="world_to_obj" type="fixed">
     <parent link="world"/>

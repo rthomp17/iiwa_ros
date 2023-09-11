@@ -40,7 +40,7 @@
     <param name="trajectory_execution/allowed_goal_duration_margin" value="0.5"/> <!-- default 0.5 -->
     
     <!-- Load the robot specific controller manager; this sets the moveit_controller_manager ROS parameter -->
-    <arg name="moveit_controller_manager" default="iiwa" />
+    <arg name="moveit_controller_manager" default="dorfl" />
     <include file="$(find iiwa_moveit)/launch/$(arg moveit_controller_manager)_moveit_controller_manager.launch.xml">
         <arg name="hardware_interface" value="$(arg hardware_interface)"/>
     </include>

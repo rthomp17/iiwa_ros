@@ -9,7 +9,7 @@
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
-    <group name="right_hand">
+<!--     <group name="right_hand">
         <link name="schunk_right_palm_link"/>
         <link name="schunk_right_finger_21_link"/>
         <link name="schunk_right_finger_22_link"/>
@@ -35,6 +35,32 @@
         <joint name="schunk_right_thumb_3_joint"/>
         <joint name="schunk_right_tip_joint"/>
     </group>
+    <group name="left_hand">
+        <link name="schunk_left_palm_link"/>
+        <link name="schunk_left_finger_21_link"/>
+        <link name="schunk_left_finger_22_link"/>
+        <link name="schunk_left_finger_23_link"/>
+        <link name="schunk_left_grasp_link"/>
+        <link name="schunk_left_finger_11_link"/>
+        <link name="schunk_left_finger_12_link"/>
+        <link name="schunk_left_finger_13_link"/>
+        <link name="schunk_left_thumb_1_link"/>
+        <link name="schunk_left_thumb_2_link"/>
+        <link name="schunk_left_thumb_3_link"/>
+        <link name="schunk_left_tip_link"/>
+        <joint name="schunk_left_palm_joint"/>
+        <joint name="schunk_left_finger_21_joint"/>
+        <joint name="schunk_left_finger_22_joint"/>
+        <joint name="schunk_left_finger_23_joint"/>
+        <joint name="schunk_left_grasp_joint"/>
+        <joint name="schunk_left_knuckle_joint"/>
+        <joint name="schunk_left_finger_12_joint"/>
+        <joint name="schunk_left_finger_13_joint"/>
+        <joint name="schunk_left_thumb_1_joint"/>
+        <joint name="schunk_left_thumb_2_joint"/>
+        <joint name="schunk_left_thumb_3_joint"/>
+        <joint name="schunk_left_tip_joint"/>
+    </group>
     <group name="PTU">
         <link name="ptu_base_link"/>
         <link name="ptu_pan_link"/>
@@ -49,12 +75,13 @@
     </group>
     <group name="right_arm">
         <chain base_link="iiwa_right_link_0" tip_link="iiwa_right_link_ee"/>
-    </group>
+    </group> -->
     <group name="left_arm">
         <chain base_link="iiwa_left_link_0" tip_link="iiwa_left_link_ee"/>
     </group>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="right_hand" parent_link="iiwa_right_link_ee" group="right_hand"/>
+    <end_effector name="left_hand" parent_link="iiwa_left_link_ee" group="left_hand"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="ft_sensor_right" link2="iiwa_right_link_2" reason="Never"/>
     <disable_collisions link1="ft_sensor_right" link2="iiwa_right_link_3" reason="Never"/>
@@ -72,6 +99,28 @@
     <disable_collisions link1="ft_sensor_right" link2="schunk_right_thumb_1_link" reason="Never"/>
     <disable_collisions link1="ft_sensor_right" link2="schunk_right_thumb_2_link" reason="Never"/>
     <disable_collisions link1="ft_sensor_right" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_2" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_3" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_4" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_5" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_6" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="iiwa_left_link_7" reason="Adjacent"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_palm_link" reason="Adjacent"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="ft_sensor_left" link2="schunk_left_thumb_3_link" reason="Never"/>
+
+
+
+
+
     <disable_collisions link1="iiwa_left_link_0" link2="iiwa_left_link_1" reason="Adjacent"/>
     <disable_collisions link1="iiwa_left_link_0" link2="iiwa_left_link_2" reason="Never"/>
     <disable_collisions link1="iiwa_left_link_0" link2="iiwa_left_link_3" reason="Never"/>
@@ -128,6 +177,11 @@
     <disable_collisions link1="iiwa_left_link_5" link2="iiwa_left_link_6" reason="Adjacent"/>
     <disable_collisions link1="iiwa_left_link_5" link2="iiwa_left_link_7" reason="Never"/>
     <disable_collisions link1="iiwa_left_link_6" link2="iiwa_left_link_7" reason="Adjacent"/>
+
+
+
+
+
     <disable_collisions link1="iiwa_right_link_0" link2="iiwa_right_link_1" reason="Adjacent"/>
     <disable_collisions link1="iiwa_right_link_0" link2="iiwa_right_link_2" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_0" link2="iiwa_right_link_3" reason="Never"/>
@@ -162,6 +216,8 @@
     <disable_collisions link1="iiwa_right_link_3" link2="ptu_pan_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="ptu_tilt_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="ptu_tilted_link" reason="Never"/>
+
+
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_finger_11_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_finger_12_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_finger_13_link" reason="Never"/>
@@ -172,10 +228,23 @@
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_thumb_1_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_thumb_2_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_3" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_3" link2="schunk_left_thumb_3_link" reason="Never"/>
+
     <disable_collisions link1="iiwa_right_link_3" link2="torso" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="iiwa_right_link_5" reason="Adjacent"/>
     <disable_collisions link1="iiwa_right_link_4" link2="iiwa_right_link_6" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="iiwa_right_link_7" reason="Never"/>
+
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_finger_11_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_finger_12_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_finger_13_link" reason="Never"/>
@@ -186,6 +255,18 @@
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_thumb_1_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_thumb_2_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_4" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_4" link2="schunk_left_thumb_3_link" reason="Never"/>
+
     <disable_collisions link1="iiwa_right_link_5" link2="iiwa_right_link_6" reason="Adjacent"/>
     <disable_collisions link1="iiwa_right_link_5" link2="iiwa_right_link_7" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_5" link2="schunk_right_finger_11_link" reason="Never"/>
@@ -198,6 +279,20 @@
     <disable_collisions link1="iiwa_right_link_5" link2="schunk_right_thumb_1_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_5" link2="schunk_right_thumb_2_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_5" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_right_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_right_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_5" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+
     <disable_collisions link1="iiwa_right_link_6" link2="iiwa_right_link_7" reason="Adjacent"/>
     <disable_collisions link1="iiwa_right_link_6" link2="schunk_right_finger_11_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_6" link2="schunk_right_finger_12_link" reason="Never"/>
@@ -219,6 +314,31 @@
     <disable_collisions link1="iiwa_right_link_7" link2="schunk_right_thumb_1_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_7" link2="schunk_right_thumb_2_link" reason="Never"/>
     <disable_collisions link1="iiwa_right_link_7" link2="schunk_right_thumb_3_link" reason="Never"/>
+
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_6" link2="schunk_left_thumb_3_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_11_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_12_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_22_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="iiwa_left_link_7" link2="schunk_left_thumb_3_link" reason="Never"/>
+
+
+
+
     <disable_collisions link1="ptu_pan_link" link2="ptu_tilt_link" reason="Adjacent"/>
     <disable_collisions link1="ptu_pan_link" link2="ptu_tilted_link" reason="Never"/>
     <disable_collisions link1="ptu_pan_link" link2="torso" reason="Adjacent"/>
@@ -244,4 +364,25 @@
     <disable_collisions link1="schunk_right_thumb_1_link" link2="schunk_right_thumb_2_link" reason="Adjacent"/>
     <disable_collisions link1="schunk_right_thumb_1_link" link2="schunk_right_thumb_3_link" reason="Never"/>
     <disable_collisions link1="schunk_right_thumb_2_link" link2="schunk_right_thumb_3_link" reason="Adjacent"/>
+
+    <disable_collisions link1="schunk_left_finger_11_link" link2="schunk_left_finger_12_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_11_link" link2="schunk_left_finger_13_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_11_link" link2="schunk_left_finger_21_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_11_link" link2="schunk_left_palm_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_11_link" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_12_link" link2="schunk_left_finger_13_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_12_link" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_21_link" link2="schunk_left_finger_22_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_21_link" link2="schunk_left_finger_23_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_21_link" link2="schunk_left_palm_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_21_link" link2="schunk_left_thumb_1_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_21_link" link2="schunk_left_thumb_3_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_finger_22_link" link2="schunk_left_finger_23_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_finger_22_link" link2="schunk_left_palm_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_palm_link" link2="schunk_left_thumb_1_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_palm_link" link2="schunk_left_thumb_2_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_thumb_1_link" link2="schunk_left_thumb_2_link" reason="Adjacent"/>
+    <disable_collisions link1="schunk_left_thumb_1_link" link2="schunk_left_thumb_3_link" reason="Never"/>
+    <disable_collisions link1="schunk_left_thumb_2_link" link2="schunk_left_thumb_3_link" reason="Adjacent"/>
+
 </robot>

@@ -1,0 +1,9 @@
+joint_names:
+      - schunk_right_finger_12_joint
+      - schunk_right_finger_13_joint
+      - schunk_right_finger_21_joint
+      - schunk_right_finger_22_joint
+      - schunk_right_finger_23_joint
+      - schunk_right_knuckle_joint
+      - schunk_right_thumb_2_joint
+      - schunk_right_thumb_3_joint

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- Select the robot -->
+    <arg name="robot_name" default="iiwa"/>
+    <arg name="model" default="7" />
+
+    <!-- Select the controller -->
+    <arg name="controller" default="TorqueController"/>
+
+    <!-- Select the hardware interface -->
+    <arg if="$(eval controller == 'TorqueController')" name="hardware_interface" value="EffortJointInterface"/>
+    <arg if="$(eval controller == 'PositionTorqueController')" name="hardware_interface" value="EffortJointInterface"/>
+    <arg if="$(eval controller == 'PositionController')" name="hardware_interface" value="PositionJointInterface"/>
+    <arg if="$(eval controller == 'PositionTrajectoryController')" name="hardware_interface" value="PositionJointInterface"/>
+    <!-- By default assume EffortJointInterface -->
+    <arg unless="$(eval (controller == 'PositionController') or (controller == 'PositionTorqueController') or (controller == 'TorqueController') or (controller == 'PositionTrajectoryController'))" name="hardware_interface" value="EffortJointInterface"/>
+
+    <!-- Upload iiwa URDF -->
+    <include file="$(find iiwa_description)/launch/dorfl_upload.launch">
+    <arg name="hardware_interface" value="$(arg hardware_interface)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+    </include>
+
+    <!-- Spawn iiwa service -->
+    <include file="$(find iiwa_tools)/launch/iiwa_service.launch"/>
+</launch>

@@ -6,13 +6,13 @@ fri:
 hardware_interface:
   control_freq: 200 # in Hz
   joints:
-    - iiwa_joint_1
-    - iiwa_joint_2
-    - iiwa_joint_3
-    - iiwa_joint_4
-    - iiwa_joint_5
-    - iiwa_joint_6
-    - iiwa_joint_7
+    - iiwa_left_joint_1
+    - iiwa_left_joint_2
+    - iiwa_left_joint_3
+    - iiwa_left_joint_4
+    - iiwa_left_joint_5
+    - iiwa_left_joint_6
+    - iiwa_left_joint_7
 
 publish:
   additional_info: true

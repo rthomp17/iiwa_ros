@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Select the controller -->
+  <arg name="controller" default="TorqueController"/>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find iiwa_control)/config/iiwa_right_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="iiwa_controller" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/dorfl/iiwa_right" args="/dorfl/iiwa_right/$(arg controller) /dorfl/iiwa_right/joint_state_controller"/>
+
+<!--   <node name="iiwa_controller" pkg="controller_manager" type="spawner" respawn="false"
+  output="screen" ns="/dorfl" args="/iiwa_left/$(arg controller) /iiwa_left/joint_state_controller"/> -->
+
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+<!--   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/iiwa_left/joint_states" />
+  </node> -->
+
+</launch>

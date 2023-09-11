@@ -398,6 +398,14 @@
     <xacro:iiwa_gazebo robot_name="${robot_name}" />
     <xacro:iiwa_transmission hardware_interface="${hardware_interface}"/>
 
+    <gazebo>
+    <plugin name="gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>dorfl/${robot_name}</robotNamespace>
+      <!-- <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType> -->
+      <filterJointParams>joint_names</filterJointParams>
+    </plugin>
+  </gazebo>
+
   </xacro:macro>
 
 </robot>
