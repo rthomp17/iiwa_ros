@@ -40,11 +40,11 @@
         args="-urdf -model dorfl -param robot_description"/>
 
 
-    <rosparam file="$(find iiwa_control)/config/dorfl_control.yaml" command="load"/> 
+<!--     <rosparam file="$(find iiwa_control)/config/dorfl_control.yaml" command="load"/> 
     <node name="dorfl_controller" pkg="controller_manager" type="spawner" respawn="false"
     output="screen"  ns="/dorfl" args="/dorfl/joint_state_controller"/>
 
-
+ -->
     <!-- Spawn controller -->
     <rosparam file="$(find iiwa_gazebo)/config/iiwa_left_control.yaml" command="load" ns="$(arg robot_name)"/> 
 
