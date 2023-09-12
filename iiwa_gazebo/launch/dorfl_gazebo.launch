@@ -44,26 +44,27 @@
     <node name="dorfl_controller" pkg="controller_manager" type="spawner" respawn="false"
     output="screen"  ns="/dorfl" args="/dorfl/joint_state_controller"/>
 
-    <group ns="dorfl">
-        <!-- Spawn controller -->
-        <rosparam file="$(find iiwa_gazebo)/config/iiwa_left_control.yaml" command="load" ns="$(arg robot_name)"/> 
 
-        <rosparam file="$(find iiwa_gazebo)/config/iiwa_right_control.yaml" command="load" ns="$(arg robot_name)"/> 
-        <rosparam file="$(find iiwa_gazebo)/config/schunk_left_control.yaml" command="load" ns="schunk_left"/> 
-        <rosparam file="$(find iiwa_gazebo)/config/schunk_right_control.yaml" command="load" ns="schunk_right"/>
+    <!-- Spawn controller -->
+    <rosparam file="$(find iiwa_gazebo)/config/iiwa_left_control.yaml" command="load" ns="$(arg robot_name)"/> 
 
-        <include file="$(find iiwa_control)/launch/iiwa_left_control.launch">
-           <arg name="controller" value="$(arg controller)"/>
-        </include>
-        <include file="$(find iiwa_control)/launch/iiwa_right_control.launch">
-           <arg name="controller" value="$(arg controller)"/>
-        </include>
+    <rosparam file="$(find iiwa_gazebo)/config/iiwa_right_control.yaml" command="load" ns="$(arg robot_name)"/> 
 
+    <rosparam file="$(find iiwa_gazebo)/config/schunk_left_control.yaml" command="load" ns="schunk_left"/> 
+    <rosparam file="$(find iiwa_gazebo)/config/schunk_right_control.yaml" command="load" ns="schunk_right"/>
+<!-- 
+    <include file="$(find iiwa_control)/launch/iiwa_left_control.launch">
+       <arg name="controller" value="$(arg controller)"/>
+    </include>
+    <include file="$(find iiwa_control)/launch/iiwa_right_control.launch">
+       <arg name="controller" value="$(arg controller)"/>
+    </include> -->
 
-        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-            respawn="false" output="screen"></node>
+    <include file="$(find iiwa_control)/launch/dorfl_control.launch">
+       <arg name="controller" value="$(arg controller)"/>
+    </include>
 
-    </group>    
+    
 
 
 <!--     <rosparam file="$(find iiwa_gazebo)/config/iiwa_right_control.yaml" command="load" ns="$(arg robot_name)"/> 

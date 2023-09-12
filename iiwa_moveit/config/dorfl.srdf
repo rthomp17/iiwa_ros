@@ -9,7 +9,7 @@
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
-<!--     <group name="right_hand">
+    <group name="right_hand">
         <link name="schunk_right_palm_link"/>
         <link name="schunk_right_finger_21_link"/>
         <link name="schunk_right_finger_22_link"/>
@@ -75,7 +75,7 @@
     </group>
     <group name="right_arm">
         <chain base_link="iiwa_right_link_0" tip_link="iiwa_right_link_ee"/>
-    </group> -->
+    </group>
     <group name="left_arm">
         <chain base_link="iiwa_left_link_0" tip_link="iiwa_left_link_ee"/>
     </group>

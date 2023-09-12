@@ -9,12 +9,12 @@
 
   <!-- load the controllers -->
   <node name="iiwa_controller" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/iiwa_left" args="/iiwa_left/$(arg controller) /iiwa_left/joint_state_controller"/>
+    output="screen" ns="/dorfl" args="/dorfl/Left$(arg controller) /dorfl/Right$(arg controller) /dorfl/joint_state_controller"/>
 
   <!-- convert joint states to TF transforms for rviz, etc -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+<!--   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
     respawn="false" output="screen">
-    <remap from="/joint_states" to="/iiwa_left/joint_states" />
-  </node>
+    <remap from="/joint_states" to="/dorfl/joint_states" />
+  </node> -->
 
 </launch>
