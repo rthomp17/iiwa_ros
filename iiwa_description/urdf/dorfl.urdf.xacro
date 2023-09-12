@@ -172,14 +172,14 @@
 
 <!-- Load Gazebo lib and set the robot namespace -->
   
-
+<!-- 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>dorfl</robotNamespace>
       <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType>
     </plugin>
   </gazebo>
-
+ -->
 
   <!-- <joint name="world_to_iiwa_left_geom" type="fixed">
     <parent link="world"/>

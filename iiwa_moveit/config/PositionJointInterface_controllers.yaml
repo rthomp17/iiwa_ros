@@ -1,5 +1,6 @@
+
 controller_list:
-  - name: LeftPositionTrajectoryController
+  - name: iiwa_left/PositionTrajectoryController
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: true
@@ -12,7 +13,7 @@ controller_list:
       - iiwa_left_joint_6
       - iiwa_left_joint_7
 
-  - name: RightPositionTrajectoryController
+  - name: iiwa_right/PositionTrajectoryController
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: true
