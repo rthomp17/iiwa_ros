@@ -400,17 +400,16 @@
 
     <!-- <gazebo>
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>dorfl/${robot_name}</robotNamespace>
+        <robotNamespace>dorfl/${robSot_name}</robotNamespace>
         <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType>
       </plugin>
     </gazebo> -->
 
 
     <gazebo>
-    <plugin name="gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+    <plugin name="${robot_name}_gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
       <robotNamespace>dorfl/${robot_name}</robotNamespace>
-      <!-- <robotSimType>iiwa_gazebo/GravityCompensationHWSim</robotSimType>  -->
-      <filterJointParams>joint_names</filterJointParams>
+      <filterJointsParam>joint_names</filterJointsParam>
     </plugin>
   </gazebo>
 

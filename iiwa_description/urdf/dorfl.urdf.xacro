@@ -54,17 +54,21 @@
     <xacro:arg name="collision_postfix" default=""/>
   </xacro:unless>
 
-   <!-- Here we insert the (left) iiwa7 robot in the scene-->
+
+       <!-- Here we insert the (left) iiwa7 robot in the scene-->
   <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_left" 
     parent="torso" collision_postfix="$(arg collision_postfix)">
     <origin xyz="0.15 0.33 1.35" rpy="0 1.57 0"/>
   </xacro:iiwa7>
+
 
   <!-- Here we insert the (right) iiwa7 robot in the scene-->
   <xacro:iiwa7 hardware_interface="$(arg hardware_interface)" robot_name="iiwa_right" 
     parent="torso" collision_postfix="$(arg collision_postfix)">
     <origin xyz="0.15 -0.33 1.35" rpy="0 1.57 0"/>
   </xacro:iiwa7>
+
+
 
   <joint name="iiwa_right_to_ft_sensor_right" type="fixed">
     <parent link="iiwa_right_link_ee"/>
@@ -145,6 +149,24 @@
   </joint> -->
 
   <!--  Edit  -->
+
+
+<!--     <gazebo>
+    <plugin name="left_gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>dorfl/iiwa_left</robotNamespace>
+      <filterJointParams>joint_names</filterJointParams>
+    </plugin>
+  </gazebo>
+
+
+    <gazebo>
+    <plugin name="right_gazebo_ros_control" filename="libhwi_switch_gazebo_ros_control.so">
+      <robotNamespace>dorfl/iiwa_right</robotNamespace>
+      <filterJointParams>joint_names</filterJointParams>
+    </plugin>
+  </gazebo>
+
+ -->
 
  <!-- Include and invoke the macro which creates a D46 PTU -->
   <xacro:include filename="$(find flir_ptu_description)/urdf/d46.urdf.xacro" />

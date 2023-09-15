@@ -37,7 +37,9 @@
 
     <!-- Run a python script to send a service call to gazebo_ros to spawn a URDF robot -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-urdf -model dorfl -param robot_description"/>
+        args="-urdf -model dorfl -param robot_description">
+
+    </node>
 
 
 <!--     <rosparam file="$(find iiwa_control)/config/dorfl_control.yaml" command="load"/> 
@@ -53,6 +55,7 @@
     <rosparam file="$(find iiwa_gazebo)/config/schunk_left_control.yaml" command="load" ns="schunk_left"/> 
     <rosparam file="$(find iiwa_gazebo)/config/schunk_right_control.yaml" command="load" ns="schunk_right"/>
 
+
     <include file="$(find iiwa_control)/launch/iiwa_left_control.launch">
        <arg name="controller" value="$(arg controller)"/>
     </include>
@@ -64,7 +67,7 @@
        <arg name="controller" value="$(arg controller)"/>
     </include> -->
 
-     <arg name="source_list" default="[/dorfl/iiwa_left/joint_states, /dorfl/iiwa_right/joint_states]"/>
+     <arg name="source_list" default="[/dorfl/iiwa_left/joint_states, ]"/>
 
      <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
         <rosparam param="source_list" subst_value="True">$(arg source_list)</rosparam> 
@@ -72,6 +75,8 @@
 
      <remap from="/joint_states" to="/dorfl/joint_states" />
  </node>
+
+
 
 <!--     <rosparam file="$(find iiwa_gazebo)/config/iiwa_right_control.yaml" command="load" ns="$(arg robot_name)"/> 
     <include file="$(find iiwa_control)/launch/iiwa_right_control.launch">
