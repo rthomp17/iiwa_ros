@@ -16,4 +16,4 @@ hardware_interface:
 
 publish:
   additional_info: true
-  commanded_torques: trueh
+  commanded_torques: true

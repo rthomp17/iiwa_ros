@@ -67,14 +67,7 @@
        <arg name="controller" value="$(arg controller)"/>
     </include> -->
 
-     <arg name="source_list" default="[/dorfl/iiwa_left/joint_states, ]"/>
 
-     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-        <rosparam param="source_list" subst_value="True">$(arg source_list)</rosparam> 
-        <rosparam param="rate">50</rosparam> 
-
-     <remap from="/joint_states" to="/dorfl/joint_states" />
- </node>
 
 
 

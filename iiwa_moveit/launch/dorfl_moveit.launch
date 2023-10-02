@@ -26,10 +26,11 @@
     <remap from="/get_planning_scene" to="/$(arg robot_name)/get_planning_scene" />
 
     <!-- Start the FRI driver, if requested -->
-    <include if="$(arg driver)" file="$(find iiwa_driver)/launch/iiwa_bringup.launch">
+    <!-- For DORFL, we don't want to do this, because the controllers should be running on separate computers -->
+<!--     <include if="$(arg driver)" file="$(find iiwa_driver)/launch/iiwa_bringup.launch">
         <arg name="controller" value="PositionTrajectoryController"/>
     </include>
-
+ -->
 
     <!--Put in a namespace to allow many instances to run-->
     
@@ -40,7 +41,7 @@
 
       <group ns="$(arg robot_name)" >
       	   <include file="$(find iiwa_moveit)/launch/move_group.launch">
-        <arg name="publish_monitored_planning_scene" value="false" />
+        <arg name="publish_monitored_planning_scene" value="true" />
         <arg name="fake_execution" value="false"/>
         <arg name="hardware_interface" value="$(arg hardware_interface)"/>
         <arg name="robot_name" value="$(arg robot_name)"/>
@@ -56,5 +57,20 @@
 
         <!-- If database loading was enabled, start mongodb as well -->
         <include file="$(find iiwa_moveit)/launch/default_warehouse_db.launch" if="$(arg db)"/>
-    </group>
+    
+
+    <arg name="source_list" default="[/dorfl/iiwa_left/joint_states, /dorfl/iiwa_right/joint_states ]"/>
+
+     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <rosparam param="source_list" subst_value="True">$(arg source_list)</rosparam> 
+        <rosparam param="rate">50</rosparam> 
+
+     <remap from="/joint_states" to="/dorfl/joint_states" />
+ </node>
+
+<!--    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+   <remap from="/joint_states" to="/dorfl/iiwa_left/joint_states" />
+  </node> -->
+  </group>
 </launch>
