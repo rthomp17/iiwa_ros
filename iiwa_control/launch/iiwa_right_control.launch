@@ -9,7 +9,8 @@
 
   <!-- load the controllers -->
   <node name="iiwa_controller" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/dorfl/iiwa_right" args="/dorfl/iiwa_right/$(arg controller) /dorfl/iiwa_right/joint_state_controller"/>
+    output="screen" ns="/dorfl/iiwa_right" args="/dorfl/iiwa_right/$(arg controller) /dorfl/iiwa_right/joint_state_controller">
+  </node>
 
 <!--   <node name="iiwa_controller" pkg="controller_manager" type="spawner" respawn="false"
   output="screen" ns="/dorfl" args="/iiwa_left/$(arg controller) /iiwa_left/joint_state_controller"/> -->
