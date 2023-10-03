@@ -31,7 +31,7 @@
   <arg name="model" default="7" />
 
   <!-- Select the controller -->
-  <arg name="controller" default="TorqueController"/>
+  <arg name="controller" default="PositionTrajectoryController"/>
 
   <group ns="dorfl/iiwa_right">
     <!-- Setup iiwa -->
